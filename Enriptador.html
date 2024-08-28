@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encriptador de Texto</title>
+    <script type="text/javascript">
+        function encriptarTexto() {
+            let texto = document.getElementById("texto").value;
+            let desplazamiento = parseInt(document.getElementById("desplazamiento").value);
+            let resultado = "";
+
+            for (let i = 0; i < texto.length; i++) {
+                let c = texto.charAt(i);
+
+                if (c.match(/[A-Z]/)) {
+                    resultado += String.fromCharCode(((c.charCodeAt(0) - 65 + desplazamiento) % 26) + 65);
+                } else if (c.match(/[a-z]/)) {
+                    resultado += String.fromCharCode(((c.charCodeAt(0) - 97 + desplazamiento) % 26) + 97);
+                } else {
+                    resultado += c;
+                }
+            }
+
+            document.getElementById("resultado").value = resultado;
+        }
+
+        function desencriptarTexto() {
+            let texto = document.getElementById("texto").value;
+            let desplazamiento = parseInt(document.getElementById("desplazamiento").value);
+            let resultado = "";
+
+            for (let i = 0; i < texto.length; i++) {
+                let c = texto.charAt(i);
+
+                if (c.match(/[A-Z]/)) {
+                    resultado += String.fromCharCode(((c.charCodeAt(0) - 65 - desplazamiento + 26) % 26) + 65);
+                } else if (c.match(/[a-z]/)) {
+                    resultado += String.fromCharCode(((c.charCodeAt(0) - 97 - desplazamiento + 26) % 26) + 97);
+                } else {
+                    resultado += c;
+                }
+            }
+
+            document.getElementById("resultado").value = resultado;
+        }
+    </script>
+</head>
+<body>
+    <h1>Encriptador de Texto</h1>
+    <form>
+        <label for="texto">Texto:</label><br>
+        <textarea id="texto" rows="4" cols="50"></textarea><br><br>
+
+        <label for="desplazamiento">Desplazamiento:</label><br>
+        <input type="number" id="desplazamiento" value="3"><br><br>
+
+        <button type="button" onclick="encriptarTexto()">Encriptar</button>
+        <button type="button" onclick="desencriptarTexto()">Desencriptar</button><br><br>
+
+        <label for="resultado">Resultado:</label><br>
+        <textarea id="resultado" rows="4" cols="50" readonly></textarea><br><br>
+    </form>
+</body>
+</html>
